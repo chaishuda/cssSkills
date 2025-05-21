@@ -1,7 +1,7 @@
 <template>
     <a-config-provider :theme="theme">
         <a-layout>
-            <Sider :sideWidth="sideWidth" :routes="routes" />
+            <Sider :sideWidth="sideWidth" />
             <a-layout>
                 <HeaderComponent :sideWidth="sideWidth" />
                 <Content />
@@ -14,7 +14,6 @@ import Sider from "./Sider/index.vue";
 import HeaderComponent from "./Header/index.vue";
 import Content from "./Content/index.vue";
 import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
 
 const theme = {
     token: {
@@ -23,9 +22,6 @@ const theme = {
 };
 
 const sideWidth = ref(256);
-const router = useRouter();
-const routes = computed(() => {
-    return router.options.routes.find(route => route.name === 'layout')?.children || [];
-});
+
 </script>
 <style lang="scss" scoped></style>

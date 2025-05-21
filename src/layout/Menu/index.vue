@@ -1,10 +1,11 @@
 <template>
     <a-menu type="primary" mode="inline" :inlineCollapsed="collapsed" :items="items"
-        @click="handleClick"></a-menu>
+        @click="handleClick">
+    </a-menu>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed ,h} from 'vue';
 import type { MenuProps } from 'ant-design-vue';
 import { useRouter } from 'vue-router';
 
@@ -23,7 +24,8 @@ const router = useRouter();
 
 const items = computed(() => {
     return props.menuItems.map(route => ({
-        ...route
+        ...route,
+        icon: () => h(route?.icon||'')
     }));
 });
 
@@ -35,6 +37,5 @@ const handleClick: MenuProps['onClick'] = e => {
 };
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
 </style>
