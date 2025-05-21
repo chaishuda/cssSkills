@@ -6,7 +6,7 @@ export default [
     name: "layout",
     component: layout,
     meta: { title: "首页", noRole: true },
-    redirect: "dashboard",
+    redirect: "/dashboard",
     children: [
       {
         path: "dashboard",
