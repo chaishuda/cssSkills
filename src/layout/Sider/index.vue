@@ -49,7 +49,16 @@ function getMenuIgetMetems(routes: any[], parentPath: string = '') {
         if (route.meta?.hidden) return;
 
         // 处理路径，确保路径格式正确
-        const currentPath = parentPath ? `${parentPath}/${route.path}`.replace(/\/+/g, '/') : route.path;
+        let currentPath = route.path;
+        if (parentPath) {
+            // 如果父路径是根路径，直接拼接子路径
+            if (parentPath === '/') {
+                currentPath = `/${route.path}`;
+            } else {
+                currentPath = `${parentPath}/${route.path}`;
+            }
+        }
+        currentPath = currentPath.replace(/\/+/g, '/');
 
         const menuItem = {
             key: currentPath,
@@ -66,11 +75,20 @@ function getMenuIgetMetems(routes: any[], parentPath: string = '') {
             }
         }
 
+        // 处理 redirect 属性
+        console.log('route', route)
+        if (route.redirect) {
+            // 如果 redirect 是相对路径，需要拼接父路径
+            const redirectPath = route.redirect.startsWith('/')
+                ? route.redirect
+                : `${currentPath}/${route.redirect}`.replace(/\/+/g, '/');
+            menuItem.key = redirectPath;
+            console.log('redirectPath', redirectPath)
+        }
+
         return menuItem;
     }).filter(item => item);
 }
-
-console.log(getMenuIgetMetems(router.options.routes));
 
 </script>
 

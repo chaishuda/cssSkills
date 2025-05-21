@@ -37,14 +37,12 @@ const collapsed = computed(() => {
 // 获取当前选中的菜单项
 const selectedKeys = computed(() => {
     const currentPath = route.path;
-    // 如果是根路径，返回 dashboard 路径
-    if (currentPath === '/') {
+    // 如果是根路径或 dashboard 路径，返回 dashboard 路径
+    if (currentPath === '/' || currentPath === '/dashboard') {
         return ['/dashboard'];
     }
     return [currentPath];
 });
-
-console.log(selectedKeys.value);
 
 // 获取当前展开的菜单项
 const openKeys = computed(() => {
